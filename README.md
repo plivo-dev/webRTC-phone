@@ -17,10 +17,11 @@ git clone https://github.com/seanmiller802/webRTC-phone.git
 
 cd webRTC-phone
 
-npm install 
+npm install
+
+npm run watch
 
 npm run start
-
 ```
 
 ## Application setup
