@@ -9,7 +9,7 @@
     "start": "nodemon server/index.js",
     "heroku-postbuild": "webpack -p"
   },
-  "author": "Sean Miller",
+  "author": "Plivo Devloper experience Team",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.3",
