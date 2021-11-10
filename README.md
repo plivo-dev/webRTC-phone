@@ -102,7 +102,7 @@ Some initial setup is required before using this application (< 10 minutes). Let
 
 ## Deploying the application
 ```
-git clone https://github.com/seanmiller802/webRTC-phone.git
+git clone https://github.com/plivo-dev/webRTC-phone.git
 
 cd webRTC-phone
 ```
