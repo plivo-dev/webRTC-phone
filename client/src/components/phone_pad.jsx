@@ -242,7 +242,9 @@ class PhonePad extends React.Component {
     this.setState({ value: dest });
 
     if(this.state.browserCall) {
-      this.plivoBrowserSdk.client.call(dest);
+      const customCallerId = "<caller_id>";
+      const extraHeaders = {'X-PH-Test1': 'test1', 'X-PH-header1': customCallerId};
+      this.plivoBrowserSdk.client.call(dest, extraHeaders);
     } else {
         var XMLReq = new XMLHttpRequest();
         XMLReq.open("POST", "/makeCall");

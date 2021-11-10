@@ -18,29 +18,22 @@ Some initial setup is required before using this application (< 10 minutes). Let
 2. Purchase a new Plivo phone number from your [Plivo console](https://console.plivo.com/active-phone-numbers/).
   ![Buy Number](public/gifs/buy-number.gif)
 
-3. Make an `XML` application to handle Browser calls.
-   
-   * Don't worry, we've already taken care of building an XML app for you; all you have to do now is create a new application on the [Plivo console](https://console.plivo.com/voice/applications/) and edit the below details.
-   Set the `answer url` to `http://plivodirectdial.herokuapp.com/response/sip/route/?DialMusic=real&CLID=<caller id>` and method as `GET`.
-
-        _NOTE_: At the end of answer_url, there is a place holder `<caller_id>`, replace it with the Plivo phone number that you've purchased.
-
-    ![Create XML application](public/gifs/create-xml.gif)
-
-4. Create a new [Plivo endpoint](https://console.plivo.com/voice/endpoints/) and assign it to the application created in Step 3. (_Note: your endpoint username and password will be used for signing in_)
-
-    ![Create Endpoint](public/gifs/create-endpoint.gif)
-
-5. Create a `PHLO`. This will handle all of the call logic behind the scenes once a call is initiated for click to call and assign it to the number purchased in *step 2*.
-
-    ### Creating a PHLO
-    PHLO stands for Plivo High Level Objects. This product was built with the goal of reducing Voice and SMS application development time from weeks to minutes. The drag & drop UI allows both developers and non-technical people to quickly build and test apps without writing any code or managing a server. _In the future this product will have full parity with our developer APIs._
+3. Create a `PHLO`. This will handle all of the call logic behind the scenes once a call is initiated for click to call and assign it to the number purchased in *step 2*.
 
     ![Create PHLO](public/gifs/create-phlo.gif)
 
-    ### How this PHLO works:
+    Every PHLO begins with a _start node_ that can be triggered by an HTTP request or an incoming call (incoming SMS if it is an SMS PHLO). Since our phone can make calls in more than one way, we'll utilize both trigger events here. 
 
-    Every PHLO begins with a _start node_ that can be triggered by an HTTP request or an incoming call (incoming SMS if it is an SMS PHLO). Since our phone can make calls in more than one way, we'll utilize both trigger events here.
+    Let's start with an incoming call. 
+
+    When the phone is configured to make calls from the browser, all we have to do is use the browser SDK's call() method to initiate a call from our application endpoint to our destination #. In this case our PHLO is the endpoint, so our outbound call is actually treated as an _inbound_ call to our PHLO. Once we hit the endpoint we just forward the call to our destination number.
+
+    our code should look like this:
+    ```
+      const customCallerId = 14154830302;
+      const extraHeaders = {'X-PH-Test1': 'test1', 'X-PH-callerId': customCallerId};
+      this.plivoBrowserSdk.client.call(dest, extraHeaders);
+    ```
 
     Now for the click-to-call. This is is a slightly more complicated use case because it requires us to actually send an HTTP request with a payload to our PHLO endpoint. Remember that we will be making a call to our user's handset first, and then connecting to the destination once the first call is answered. We'll need to get both phone numbers from our application and send it to our server. Our code should look something like this:
 
@@ -76,7 +69,7 @@ Some initial setup is required before using this application (< 10 minutes). Let
       let postOptions = {
         port   : 443,
         host   : 'phlo-runner-service.plivo.com',
-        path   : '/account/MAXXXXXXX/phlo/ccccXXXXXXXXXXXXXXXXX', // our PHLO URL
+        path   : process.env.PHLO_ID,
         method : 'POST',
         headers: postHeaders,
       };
@@ -102,6 +95,11 @@ Some initial setup is required before using this application (< 10 minutes). Let
     })
     ```
 
+4. Create a new [Plivo endpoint](https://console.plivo.com/voice/endpoints/) and assign it to the application created in Step 3. (_Note: your endpoint username and password will be used for signing in_)
+
+  ![Create Endpoint](public/gifs/create-endpoint.gif)
+
+
 ## Deploying the application
 ```
 git clone https://github.com/seanmiller802/webRTC-phone.git
@@ -111,23 +109,17 @@ cd webRTC-phone
 
 ### Setting up your app
 
-* open `.env` folder and replace the place holders `<auth_id>` and `<auth_token>` with the values available in your [Plivo dasboard](https://console.plivo.com/dashboard/)
+* open `.env` folder and replace the place holders `<auth_id>`,`<auth_token>` & `<phlo_url>` with the values available in your [Plivo dasboard](https://console.plivo.com/dashboard/) & [Plivo PHLO Console](https://console.plivo.com/phlo/list/) respectively.
 
 ```
 PLIVO_AUTH_ID="<auth_id>"
 PLIVO_AUTH_TOKEN="<auth_token>"
+PHLO_ID="<phlo_url(https://console.plivo.com/phlo/list/)>"
 ```
 
-* update the PHLO URL under `server/index.js`, under the 
-below piece of code, replace the parameter `path` with the [PHLO URL](https://console.plivo.com/phlo/list/).
+* update the callerId under `client/src/components/phpne_pad.jsx`, replace the place holder `<caller_id>` with the Plivo phone number purchased.
 ```
-let postOptions = {
-      port   : 443,
-      host   : 'phlo-runner-service.plivo.com',
-      path   : 'https://phlorunner.plivo.com/v1/account/MAXXXXXXXXXXXX/phlo/4XXXXXXXXXXXX', // our PHLO endpoint'
-      method : 'POST',
-      headers: postHeaders,
-    };
+const customCallerId = "<caller_id>";
 ```
 
 ## Execute the below commands to run your app

@@ -1,8 +1,8 @@
 const https = require('https')
 const express = require("express");
 const formidable = require("express-formidable");
-const PORT = process.env.PORT || 8080;
 require('dotenv').config()
+const PORT = process.env.PORT;
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.post('/makeCall/', function(req, res) {
     let postOptions = {
       port   : 443,
       host   : 'phlo-runner-service.plivo.com',
-      path   : 'https://phlorunner.plivo.com/v1/account/MAXXXXXXXXXXXX/phlo/4XXXXXXXXXXXX', // our PHLO endpoint'
+      path   : process.env.PHLO_ID,
       method : 'POST',
       headers: postHeaders,
     };
@@ -52,5 +52,5 @@ app.post('/makeCall/', function(req, res) {
   })
   
   app.listen(PORT, function() {
-    console.log("listening on port", PORT);
+    console.log("listening on port", process.env.PORT);
   });

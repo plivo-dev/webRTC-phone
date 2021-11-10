@@ -1,6 +1,5 @@
 import AppBar from 'material-ui/AppBar';
 import React from 'react';
-import logo from '../static/primary-logo.png';
 import muiThemeable from 'material-ui/styles/muiThemeable';
 
 const styles = {
