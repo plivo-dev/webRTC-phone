@@ -30,7 +30,7 @@ Some initial setup is required before using this application (< 10 minutes). Let
 
     our code should look like this:
     ```
-      const customCallerId = 14154830302;
+      const customCallerId = <caller_id>;
       const extraHeaders = {'X-PH-Test1': 'test1', 'X-PH-callerId': customCallerId};
       this.plivoBrowserSdk.client.call(dest, extraHeaders);
     ```
