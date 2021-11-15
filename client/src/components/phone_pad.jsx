@@ -251,6 +251,7 @@ class PhonePad extends React.Component {
         XMLReq.setRequestHeader("Content-Type", "application/json");
         XMLReq.onreadystatechange = function() {
           console.log('response text', XMLReq.responseText);
+          alert("Call has been initiated!!")
         }
         XMLReq.send(JSON.stringify({"src": this.state.phoneMeNumber, "dst": dest}));
         console.log(XMLReq);

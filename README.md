@@ -16,11 +16,11 @@ Some initial setup is required before using this application (< 10 minutes). Let
 1. Register for a Plivo account here <a href="https://console.plivo.com/accounts/register/">https://console.plivo.com/accounts/register/</a>
 
 2. Purchase a new Plivo phone number from your [Plivo console](https://console.plivo.com/active-phone-numbers/).
-  ![Buy Number](public/gifs/buy-number.gif)
+  ![Buy Number](client/src/static//gifs/buy-number.gif)
 
 3. Create a `PHLO`. This will handle all of the call logic behind the scenes once a call is initiated for click to call and assign it to the number purchased in *step 2*.
 
-    ![Create PHLO](public/gifs/create-phlo.gif)
+    ![Create PHLO](client/src/static/gifs/create-phlo.gif)
 
     Every PHLO begins with a _start node_ that can be triggered by an HTTP request or an incoming call (incoming SMS if it is an SMS PHLO). Since our phone can make calls in more than one way, we'll utilize both trigger events here. 
 
@@ -97,7 +97,7 @@ Some initial setup is required before using this application (< 10 minutes). Let
 
 4. Create a new [Plivo endpoint](https://console.plivo.com/voice/endpoints/) and assign it to the application created in Step 3. (_Note: your endpoint username and password will be used for signing in_)
 
-  ![Create Endpoint](public/gifs/create-endpoint.gif)
+  ![Create Endpoint](client/src/static//gifs/create-endpoint.gif)
 
 
 ## Deploying the application
