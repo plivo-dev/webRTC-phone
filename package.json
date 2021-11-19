@@ -4,6 +4,7 @@
   "description": "Simple webphone using Plivo's browser SDK",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --ignore-pattern node_modules --fix --ext .js,.jsx .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack -d --watch",
     "start": "nodemon server/index.js",
@@ -12,6 +13,7 @@
   "author": "Plivo Devloper experience Team",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^8.2.0",
     "express": "^4.16.3",
     "express-formidable": "^1.0.0",
     "material-design-icons": "^3.0.1",
