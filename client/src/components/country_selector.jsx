@@ -1,7 +1,7 @@
-import React from 'react';
-import FlagIcon from 'react-flag-kit/lib/CDNFlagIcon.js';
-import SelectField from 'material-ui/SelectField';
+import { FlagIcon } from "react-flag-kit";
 import MenuItem from 'material-ui/MenuItem';
+import React from 'react';
+import SelectField from 'material-ui/SelectField';
 
 const styles = {
   errorStyle: {

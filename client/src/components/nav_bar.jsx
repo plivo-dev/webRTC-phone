@@ -1,7 +1,6 @@
-import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import React from 'react';
 import muiThemeable from 'material-ui/styles/muiThemeable';
-import logo from '../static/primary-logo.png';
 
 const styles = {
   navbar: {
@@ -9,7 +8,7 @@ const styles = {
   }
 }
 
-const logoPath = 'https://www.plivo.com/assets/dist/images/primary-logo.svg';
+const logoPath = 'https://s3.amazonaws.com/plivo_blog_uploads/logo/Plivo-logo.svg?v=202111050924';
 
 const NavBar = (props) => (
   <AppBar
